@@ -59,7 +59,7 @@ class MicroHDMI_Step1(QWidget):
         return_btn.setFixedSize(125,42)
         
         next_btn.clicked.connect(lambda: mhdmi_stack.setCurrentIndex(1))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(3))
+        return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
         H1.addStretch()
@@ -412,7 +412,7 @@ class MicroHDMI_Final(QWidget):
         with open(savefile, "w") as f:
             json.dump(data, f, indent=4)
             
-        self.stack.setCurrentIndex(3)
+        self.stack.setCurrentIndex(2)
         
     def load_settings(self):
         savefile = "GUI_Test_Results.json"

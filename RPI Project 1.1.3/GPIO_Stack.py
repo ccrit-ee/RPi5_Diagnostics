@@ -56,7 +56,7 @@ class GPIO_Step1(QWidget):
         return_btn.setFixedSize(125,42)
         
         next_btn.clicked.connect(lambda: gpio_stack.setCurrentIndex(1))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(3))
+        return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
         H1.addStretch()

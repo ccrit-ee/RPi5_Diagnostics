@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import ( QWidget, QPushButton,
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QProcess
 import platform, subprocess, sys, json, os
-import uart_file
+import test_files.uart_file as uart_file
 
 class UART_Menu(QWidget):
     def __init__(self,stack):
@@ -57,7 +57,7 @@ class UART_Step1(QWidget):
         return_btn.setFixedSize(125,42)
         
         next_btn.clicked.connect(lambda: uart_stack.setCurrentIndex(1))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(3))
+        return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
         H1.addStretch()
@@ -434,7 +434,7 @@ class UART_Final(QWidget):
         with open(savefile, "w") as f:
             json.dump(data, f, indent=4)
             
-        self.stack.setCurrentIndex(3)
+        self.stack.setCurrentIndex(2)
             
     def load_settings(self):
         savefile = "GUI_Test_Results.json"

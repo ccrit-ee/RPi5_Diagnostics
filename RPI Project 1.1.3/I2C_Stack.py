@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import ( QWidget, QPushButton,
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QProcess
 import platform, json, os
-import i2c_file
+import test_files.i2c_file as i2c_file
 
 class I2C_Menu(QWidget):
     def __init__(self,stack):
@@ -56,7 +56,7 @@ class I2C_Step1(QWidget):
         return_btn.setFixedSize(125,42)
         
         next_btn.clicked.connect(lambda: i2c_stack.setCurrentIndex(1))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(3))
+        return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
         H1.addStretch()
@@ -395,16 +395,16 @@ class I2C_Final(QWidget):
     #                 self.pass2.setChecked(True)
 
     def test_function(self):
+        
         self.direction.setText("<center>Running Test...</center>")
         QApplication.processEvents()
-        
+            
         self.pass1.setChecked(False)
         self.fail1.setChecked(False)
         # self.pass2.setChecked(False)
         # self.fail2.setChecked(False)
 
         i2c_file.test_i2c()        
-        # Insert test code here
         self.direction.setText("<center>Record the results here:</center>")
 
 # JSON save/load ----------------------------------------------------------------------------------------
@@ -426,7 +426,7 @@ class I2C_Final(QWidget):
         with open(savefile, "w") as f:
             json.dump(data, f, indent=4)
             
-        self.stack.setCurrentIndex(3)
+        self.stack.setCurrentIndex(2)
             
     def load_settings(self):
         savefile = "GUI_Test_Results.json"

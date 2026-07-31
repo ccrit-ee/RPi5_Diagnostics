@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import ( QWidget, QPushButton,
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QProcess
 import platform, json, os
-import spi_file
+import test_files.spi_file as spi_file
 
 class SPI_Menu(QWidget):
     def __init__(self,stack):
@@ -56,7 +56,7 @@ class SPI_Step1(QWidget):
         return_btn.setFixedSize(125,42)
         
         next_btn.clicked.connect(lambda: spi_stack.setCurrentIndex(1))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(3))
+        return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
         H1.addStretch()
@@ -403,8 +403,6 @@ class SPI_Final(QWidget):
         # self.fail2.setChecked(False)
         
         spi_file.test_spi()
-
-        #test code
         self.direction.setText("<center>Record the results here:</center>") 
 
 # JSON save/load ----------------------------------------------------------------------------------------
@@ -426,7 +424,7 @@ class SPI_Final(QWidget):
         with open(savefile, "w") as f:
             json.dump(data, f, indent=4)
             
-        self.stack.setCurrentIndex(3)
+        self.stack.setCurrentIndex(2)
             
     def load_settings(self):
         savefile = "GUI_Test_Results.json"

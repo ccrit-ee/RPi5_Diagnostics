@@ -4,24 +4,25 @@ from PyQt5.QtWidgets import ( QWidget, QPushButton,
     QButtonGroup, QApplication)
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt, QProcess
-import platform, time, subprocess, json, os
+import platform, json, os
 
-class Temperature_Menu(QWidget):
+class PCM_Menu(QWidget):
     def __init__(self,stack):
         super().__init__()
-        hsLayout = QGridLayout()
+        pcmLayout = QGridLayout()
 
-        hs_stack = QStackedWidget()
+        pcm_stack = QStackedWidget()
 
-        hs_stack.addWidget(Temperature_Step1(hs_stack,stack))
-        # hs_stack.addWidget(Temperature_Step2(hs_stack))
-        hs_stack.addWidget(Temperature_Final(hs_stack,stack))
-        hsLayout.addWidget(hs_stack)
+        pcm_stack.addWidget(PCM_Step1(pcm_stack,stack))
+        # pcm_stack.addWidget(PCM_Step2(pcm_stack))
+        # pcm_stack.addWidget(PCM_Step3(pcm_stack))
+        pcm_stack.addWidget(PCM_Final(pcm_stack,stack))
+        pcmLayout.addWidget(pcm_stack)
 
-        self.setLayout(hsLayout)
+        self.setLayout(pcmLayout)
 
-class Temperature_Step1(QWidget):
-    def __init__(self,hs_stack,stack):
+class PCM_Step1(QWidget):
+    def __init__(self,pcm_stack,stack):
         super().__init__()
 
         V1 = QVBoxLayout()
@@ -29,15 +30,13 @@ class Temperature_Step1(QWidget):
         H2 = QHBoxLayout()
        
 
-        title = QLabel("Temperature Menu")
+        title = QLabel("PCM Menu")
         title.setStyleSheet("font-size: 20px; font-weight: bold; text-decoration: underline")
 
-        direction = QLabel("Step 1: This test will check the CPU<br>"
-                           "temp to ensure that it is within the<br>"
-                           "expected ranges idling and under stress.<br>" 
-                           "Expected temperatures are below 55'C when<br>" 
-                           "idling and below 65'C when stressed.")
-        direction.setFixedSize(360,260)
+        direction = QLabel("Step 1: Ensure the ribbon cable is<br>"
+                           "connected to the test bench and run<br> " 
+                           "the test on the next page.")
+        direction.setFixedSize(360,500)
         direction.setStyleSheet("font-size: 18px")
 
         # Image Setup
@@ -55,7 +54,7 @@ class Temperature_Step1(QWidget):
         return_btn.setStyleSheet("font-size:12px; font-weight:bold;")
         return_btn.setFixedSize(125,42)
         
-        next_btn.clicked.connect(lambda: hs_stack.setCurrentIndex(1))
+        next_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(1))
         return_btn.clicked.connect(lambda: stack.setCurrentIndex(2))
 
         # Step and Image Row
@@ -80,15 +79,15 @@ class Temperature_Step1(QWidget):
         V1.addLayout(H2)
         self.setLayout(V1)
 
-# class Temperature_Step2(QWidget):
-#     def __init__(self,hs_stack):
+# class PCM_Step2(QWidget):
+#     def __init__(self,pcm_stack):
 #         super().__init__()
 
 #         V1 = QVBoxLayout()
 #         H1 = QHBoxLayout()
 #         H2 = QHBoxLayout()
        
-#         title = QLabel("Temperature Menu")
+#         title = QLabel("PCM Menu")
 #         title.setStyleSheet("font-size: 20px; font-weight: bold; text-decoration: underline")
 
 #         direction = QLabel("Step 2: ------------------------------------<br>" 
@@ -115,8 +114,8 @@ class Temperature_Step1(QWidget):
 #         return_btn.setStyleSheet("font-size:12px; font-weight:bold;")
 #         return_btn.setFixedSize(125,42)
         
-#         next_btn.clicked.connect(lambda: hs_stack.setCurrentIndex(2))
-#         return_btn.clicked.connect(lambda: hs_stack.setCurrentIndex(0))
+#         next_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(2))
+#         return_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(0))
 
 #         # Step and Image Row
 #         H1.addStretch()
@@ -140,10 +139,67 @@ class Temperature_Step1(QWidget):
 #         V1.addLayout(H2)
 #         self.setLayout(V1)
 
-class Temperature_Final(QWidget):
-    def __init__(self,hs_stack,stack):
-        super().__init__()
+# class PCM_Step3(QWidget):
+#     def __init__(self,pcm_stack):
+#         super().__init__()
+
+#         V1 = QVBoxLayout()
+#         H1 = QHBoxLayout()
+#         H2 = QHBoxLayout()
+
+#         title = QLabel("PCM Menu")
+#         title.setStyleSheet("font-size: 20px; font-weight: bold; text-decoration: underline")
+
+#         direction = QLabel("Step 3: ----------------------------------<br>" 
+#                            "------------------------------------------<br>"
+#                            "----------------------------------------- <br>")
+#         direction.setFixedSize(360,500)
+#         direction.setStyleSheet("font-size: 18px")
         
+#         # Image Setup
+#         image3_holder = QLabel()
+#         i3pixmap = QPixmap("images/placeholder.png")
+#         i3pixmap = i3pixmap.scaled(500,260,Qt.KeepAspectRatio, Qt.SmoothTransformation)
+#         image3_holder.setPixmap(i3pixmap)
+
+#         # Page Buttons
+#         next_btn = QPushButton("Continue")
+#         next_btn.setStyleSheet("font-size:12px; font-weight:bold;")
+#         next_btn.setFixedSize(125,42)
+
+#         return_btn = QPushButton("Return")
+#         return_btn.setStyleSheet("font-size:12px; font-weight:bold;")
+#         return_btn.setFixedSize(125,42)
+
+#         next_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(3))
+#         return_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(1))
+
+#         # Step and Image Row
+#         H1.addStretch()
+#         H1.addWidget(direction)
+#         H1.addStretch()
+#         H1.addWidget(image3_holder)
+#         H1.addStretch()
+
+#         # Page Button Row
+#         H2.addStretch(1)
+#         H2.addWidget(return_btn)
+#         H2.addStretch(28)
+#         H2.addWidget(next_btn)
+#         H2.addStretch(1)
+
+#         # Combined Layout
+#         V1.addWidget(title)
+#         V1.addStretch()
+#         V1.addLayout(H1)
+#         V1.addStretch()
+#         V1.addLayout(H2)
+#         self.setLayout(V1)
+
+class PCM_Final(QWidget):
+    def __init__(self,pcm_stack,stack):
+        super().__init__()
+
         self.stack = stack
 
         V1 = QVBoxLayout()
@@ -153,21 +209,20 @@ class Temperature_Final(QWidget):
         H7 = QHBoxLayout()
 
 # Widget Configurations, Button Connections ------------------------------------------------------
-        menu_title = QLabel("Temperature Menu") 
+        menu_title = QLabel("PCM Menu") 
         menu_title.setStyleSheet("font-size: 20px; font-weight: " 
                                  "bold; text-decoration: underline")
-        
+
         test_btn = QPushButton("Run Test")
         test_btn.setStyleSheet("font-size: 14px")
-        self.test = QProcess(self)
-        test_btn.clicked.connect(self.terminal_command)
+        test_btn.clicked.connect(self.test_function)        
 
         self.direction = QLabel("<center>Record the results here:</center>") 
         self.direction.setStyleSheet("font-size: 16px; text-decoration: underline")
         
         # General Radio Box
-        self.radioTitle = QLabel("Idle Temp:") 
-        self.radioTitle.setStyleSheet("font-size: 14px")
+        radioTitle = QLabel("PCM (GPIO)") 
+        radioTitle.setStyleSheet("font-size: 14px")
         self.pass1 = QRadioButton("Pass") 
         self.pass1.setStyleSheet("font-size: 14px")
         self.passflag = 0 
@@ -182,30 +237,30 @@ class Temperature_Final(QWidget):
         radio1_opt.addButton(self.pass1)
         radio1_opt.addButton(self.fail1)
         
-        # General Radio Box
-        self.radioTitle2 = QLabel("Stress Temp:") 
-        self.radioTitle2.setStyleSheet("font-size: 14px")
-        self.pass2 = QRadioButton("Pass") 
-        self.pass2.setStyleSheet("font-size: 14px")
-        self.pass2flag = 0 
-        self.fail2 = QRadioButton("Fail") 
-        self.fail2.setStyleSheet("font-size: 14px")
-        self.fail2flag = 0 
+        # # General Radio Box
+        # radioTitle2 = QLabel("Radio Title 2") 
+        # radioTitle2.setStyleSheet("font-size: 14px")
+        # self.pass2 = QRadioButton("Pass") 
+        # self.pass2.setStyleSheet("font-size: 14px")
+        # self.pass2flag = 0 
+        # self.fail2 = QRadioButton("Fail") 
+        # self.fail2.setStyleSheet("font-size: 14px")
+        # self.fail2flag = 0 
         
-        self.pass2.toggled.connect(self.pass2check)
-        self.fail2.toggled.connect(self.fail2check)
+        # self.pass2.toggled.connect(self.pass2check)
+        # self.fail2.toggled.connect(self.fail2check)
         
-        radio1_opt = QButtonGroup(self)
-        radio1_opt.addButton(self.pass2)
-        radio1_opt.addButton(self.fail2)
+        # radio2_opt = QButtonGroup(self)
+        # radio2_opt.addButton(self.pass2)
+        # radio2_opt.addButton(self.fail2)
 
         # Notes
         header = QLabel("Notes:")
         header.setStyleSheet("font-size: 14px")
-        self.heatNote = QLineEdit()
-        self.heatNote.setMaxLength(105)
-        self.heatNote.setPlaceholderText("Enter notes here (105 characters max)")
-        self.heatNote.setStyleSheet("font-size: 14px")
+        self.pcmNote = QLineEdit()
+        self.pcmNote.setMaxLength(105)
+        self.pcmNote.setPlaceholderText("Enter notes here (105 characters max)")
+        self.pcmNote.setStyleSheet("font-size: 14px")
 
         # Page Buttons
         next_btn = QPushButton("Save && Continue")
@@ -217,28 +272,28 @@ class Temperature_Final(QWidget):
         return_btn.setFixedSize(125,42)
 
         next_btn.clicked.connect(self.save_continue)
-        return_btn.clicked.connect(lambda: hs_stack.setCurrentIndex(1))
+        return_btn.clicked.connect(lambda: pcm_stack.setCurrentIndex(2))
         
 # Layout Configuration ----------------------------------------------------
         # Top Title Row
         H1.addStretch(1)
-        H1.addWidget(self.radioTitle)
-        H1.addStretch(2)
-        H1.addWidget(self.radioTitle2)
+        H1.addWidget(radioTitle)
+        # H1.addStretch(2)
+        # H1.addWidget(radioTitle2)
         H1.addStretch(1)
         
         # Top Pass Row
         H2.addStretch(1)
         H2.addWidget(self.pass1)
-        H2.addStretch(2)
-        H2.addWidget(self.pass2)
+        # H2.addStretch(2)
+        # H2.addWidget(self.pass2)
         H2.addStretch(1)
 
         # Top Fail Row
         H3.addStretch(1)
         H3.addWidget(self.fail1)
-        H3.addStretch(2)
-        H3.addWidget(self.fail2)
+        # H3.addStretch(2)
+        # H3.addWidget(self.fail2)
         H3.addStretch(1)
 
         # Page Flip Buttons
@@ -260,67 +315,14 @@ class Temperature_Final(QWidget):
         V1.addLayout(H3)
         V1.addStretch()
         V1.addWidget(header)
-        V1.addWidget(self.heatNote)
+        V1.addWidget(self.pcmNote)
         V1.addStretch()
         V1.addLayout(H7)
 
         self.setLayout(V1)
 
-        hs_stack.currentChanged.connect(self.loader)
-
-# Command Terminal Test Code --------------------------------------------
-    def terminal_command(self):
-        os = platform.system()
+        pcm_stack.currentChanged.connect(self.loader)
         
-        if os == "Windows": #For debugging GUI 
-            self.terminal = "cmd.exe"
-            command = ["/c", f"start cmd.exe /k set os"]
-            self.test.setWorkingDirectory("C:\\")
-            self.test.start(self.terminal,command)
-        elif os == "Linux": #For Testing on Pi
-            # self.terminal = "x-terminal-emulator"
-            # command = ["-e", "bash", "-c", f"stress-ng --cpu 4 --timeout 5; exec bash"]
-            # self.test.start(self.terminal,command)
-            self.direction.setText("<center>Running Test...</center>")
-            QApplication.processEvents()
-
-            self.pass1.setChecked(False)
-            self.fail1.setChecked(False)
-            self.pass2.setChecked(False)
-            self.fail2.setChecked(False)
-            self.radioTitle.setText("Idle Temp:")
-            self.radioTitle.setText("Stress Temp:")
-
-            idleTest = subprocess.run(["vcgencmd", "measure_temp"], capture_output=True, text=True)
-            idleResult = idleTest.stdout.strip()
-            idleTemp = idleResult.replace("temp=","").replace("'C","")
-            idleTempInt = float(idleTemp)
-            self.radioTitle.setText(f"Idle Temp:{idleTempInt}'C")
-            if idleTempInt <= 55:
-                self.pass1.setChecked(True)
-            else:
-                self.fail1.setChecked(True)
-            
-            time.sleep(0.1)
-
-            subprocess.run(["stress-ng", "--cpu", "4", "--timeout", "5"], capture_output=True, text=True)
-
-            time.sleep(4)
-
-            stressTest = subprocess.run(["vcgencmd", "measure_temp"], capture_output=True, text=True)
-            stressResult = stressTest.stdout.strip()
-            stressTemp = stressResult.replace("temp=","").replace("'C","")
-            stressTempInt = float(stressTemp)
-            self.radioTitle2.setText(f"Stress Temp:{stressTempInt}'C")
-            if stressTempInt <= 65:
-                self.pass2.setChecked(True)
-            else:
-                self.fail2.setChecked(True)
-
-            self.direction.setText("<center>Record the results here:</center>")
-
-                
-
 # Fail/Pass Button Insurance Functions ------------------------------------------------       
     def pass1check(self):
         if self.pass1.isChecked():
@@ -328,7 +330,7 @@ class Temperature_Final(QWidget):
                 self.passflag = 1
             elif self.failflag == 1:
                 chk = QMessageBox.question(self,"Change Confirmation",
-                                           "Are you sure you want to edit Idle Temp?", 
+                                           "Are you sure you want to edit PCM (GPIO)?", 
                                            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
                 if chk == QMessageBox.Yes:
                     self.passflag = 1 
@@ -345,7 +347,7 @@ class Temperature_Final(QWidget):
                 self.failflag = 1
             else:
                 chk = QMessageBox.question(self,"Change Confirmation", 
-                                           "Are you sure you want to edit Idle Temp?",
+                                           "Are you sure you want to edit PCM (GPIO)?",
                                            QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
                 if chk == QMessageBox.Yes:
                     self.failflag = 1
@@ -356,41 +358,55 @@ class Temperature_Final(QWidget):
                     self.fail1.setChecked(False)
                     self.pass1.setChecked(True)
                     
-    def pass2check(self):
-        if self.pass2.isChecked():
-            if self.fail2flag == 0:
-                self.pass2flag = 1
-            else:
-                chk = QMessageBox.question(self,"Change Confirmation", 
-                                           "Are you sure you want to edit Stress Temp?", 
-                                           QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                if chk == QMessageBox.Yes:
-                    self.pass2flag = 1
-                    self.fail2flag = 0
-                else:
-                    self.pass2flag = 0
-                    self.fail2flag = 1
-                    self.pass2.setChecked(False)
-                    self.fail2.setChecked(True)
+    # def pass2check(self):
+    #     if self.pass2.isChecked():
+    #         if self.fail2flag == 0:
+    #             self.pass2flag = 1
+    #         else:
+    #             chk = QMessageBox.question(self,"Change Confirmation", 
+    #                                        "Are you sure you want to edit Radio Title 2?", 
+    #                                        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+    #             if chk == QMessageBox.Yes:
+    #                 self.pass2flag = 1
+    #                 self.fail2flag = 0
+    #             else:
+    #                 self.pass2flag = 0
+    #                 self.fail2flag = 1
+    #                 self.pass2.setChecked(False)
+    #                 self.fail2.setChecked(True)
                     
-    def fail2check(self):
-        if self.fail2.isChecked():
-            if self.pass2flag == 0:
-                self.fail2flag = 1
-            else:
-                chk = QMessageBox.question(self,"Change Confirmation", 
-                                           "Are you sure you want to edit Stress Temp?", 
-                                           QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-                if chk == QMessageBox.Yes:
-                    self.fail2flag = 1
-                    self.pass2flag = 0
-                else:
-                    self.fail2flag = 0
-                    self.pass2flag = 1
-                    self.fail2.setChecked(False)
-                    self.pass2.setChecked(True)
-                    
-# JSON save/load ----------------------------------------------------------------------------------------                    
+    # def fail2check(self):
+    #     if self.fail2.isChecked():
+    #         if self.pass2flag == 0:
+    #             self.fail2flag = 1
+    #         else:
+    #             chk = QMessageBox.question(self,"Change Confirmation", 
+    #                                        "Are you sure you want to edit Radio Title 2?", 
+    #                                        QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+    #             if chk == QMessageBox.Yes:
+    #                 self.fail2flag = 1
+    #                 self.pass2flag = 0
+    #             else:
+    #                 self.fail2flag = 0
+    #                 self.pass2flag = 1
+    #                 self.fail2.setChecked(False)
+    #                 self.pass2.setChecked(True)
+
+    def test_function(self):
+        self.direction.setText("<center>Running Test...</center>")
+        QApplication.processEvents()
+
+        self.pass1.setChecked(False)
+        self.fail1.setChecked(False)
+        # self.pass2.setChecked(False)
+        # self.fail2.setChecked(False)
+        
+    
+
+        #test code
+        self.direction.setText("<center>Record the results here:</center>") 
+
+# JSON save/load ----------------------------------------------------------------------------------------
     def save_continue(self):
         savefile = "GUI_Test_Results.json"
         if os.path.exists(savefile):
@@ -399,18 +415,18 @@ class Temperature_Final(QWidget):
         else: 
             data = {}
             
-        data["temp_data"] = {
-            "test": "Temperature Check",
-            "idle": "Pass" if self.pass1.isChecked() else "Fail" if self.fail1.isChecked() else "None",
-            "stressed": "Pass" if self.pass2.isChecked() else "Fail" if self.fail2.isChecked() else "None",
-            "heatNote": self.heatNote.text()
+        data["pcm_data"] = {
+            "test": "PCM Loopback",
+            "pcm": "Pass" if self.pass1.isChecked() else "Fail" if self.fail1.isChecked() else "None",
+            # "RadioTitle2": "Pass" if self.pass2.isChecked() else "Fail" if self.fail2.isChecked() else "None",
+            "pcmNote": self.pcmNote.text()
         }
         
         with open(savefile, "w") as f:
             json.dump(data, f, indent=4)
             
         self.stack.setCurrentIndex(2)
-        
+            
     def load_settings(self):
         savefile = "GUI_Test_Results.json"
         if not os.path.exists(savefile):
@@ -419,26 +435,34 @@ class Temperature_Final(QWidget):
         with open(savefile, "r") as f:
             data = json.load(f)
             
-        heat = data.get("temp_data", {})
+        pcm = data.get("pcm_data", {})
         
-        if heat.get("idle") == "Pass":
+        if pcm.get("pcm") == "Pass":
             self.pass1.setChecked(True)
-        elif heat.get("idle") == "Fail":
+        elif pcm.get("pcm") == "Fail":
             self.fail1.setChecked(True)
-        elif heat.get("idle") == "None":
+        elif pcm.get("pcm") == "None":
             self.pass1.setChecked(False)
             self.fail1.setChecked(False)
             
-        if heat.get("stressed") == "Pass":
-            self.pass2.setChecked(True)
-        elif heat.get("stressed") == "Fail":
-            self.fail2.setChecked(True)
-        elif heat.get("stressed") == "None":
-            self.pass2.setChecked(False)
-            self.fail2.setChecked(False)
+        # if pcm.get("RadioTitle2") == "Pass":
+        #     self.pass2.setChecked(True)
+        # elif pcm.get("RadioTitle2") == "Fail":
+        #     self.fail2.setChecked(True)
+        # elif pcm.get("RadioTitle2") == "None":
+        #     self.pass2.setChecked(False)
+        #     self.fail2.setChecked(False)
+
+        # if pcm.get("RadioTitle3") == "Pass":
+        #     self.pass3.setChecked(True)
+        # elif pcm.get("RadioTitle3") == "Fail":
+        #     self.fail3.setChecked(True)
+        # elif pcm.get("RadioTitle3") == "None":
+        #     self.pass3.setChecked(False)
+        #     self.fail3.setChecked(False)
             
-        self.heatNote.setText(heat.get("heatNote"))
+        self.pcmNote.setText(pcm.get("pcmNote"))  
 
     def loader(self, i):
         if i == 1:
-            self.load_settings()
+            self.load_settings() 

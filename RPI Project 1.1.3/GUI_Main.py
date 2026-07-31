@@ -7,20 +7,20 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import QPixmap
 from PyQt5.QtCore import Qt
 
-from GPIO_Stack import GPIO_Menu
-from PWM_Stack import PWM_Menu
 from I2C_Stack import I2C_Menu
 from SPI_Stack import SPI_Menu
 from UART_Stack import UART_Menu
-from WIFI_Stack import WIFI_Menu
-from Bluetooth_Stack import Bluetooth_Menu
-from Ethernet_Stack import Ethernet_Menu
+from PWM_Stack import PWM_Menu
+from PCM_Stack import PCM_Menu
+from GPIO_Stack import GPIO_Menu
 from USB_Stack import USB_Menu
-from Fan_Stack import Fan_Menu
 from Micro_HDMI_Stack import MicroHDMI_Menu
-from CSI_DSI_Stack import CSI_Menu
-from Read_Write_Stack import Read_Write_Menu
+from Fan_Stack import Fan_Menu
 from Temperature_Stack import Temperature_Menu
+from WIFI_Stack import WIFI_Menu
+from Ethernet_Stack import Ethernet_Menu
+from Bluetooth_Stack import Bluetooth_Menu
+from CSI_DSI_Stack import CSI_Menu
 
 
 class Welcome_Screen(QWidget):
@@ -123,25 +123,6 @@ class Main_Menu(QWidget):
             stack.setCurrentIndex(3)
         else:
             return
-    
-
-class Full_Diagnostic(QWidget):
-    def __init__(self,stack):
-        super().__init__()
-
-        fdLayout = QVBoxLayout()
-        
-        note = QLabel("<center>In progress</center>")
-        
-        title_btn = QPushButton("Back to Title")
-        return_btn = QPushButton("Back to Testing")
-        title_btn.clicked.connect(lambda: stack.setCurrentIndex(0))
-        return_btn.clicked.connect(lambda: stack.setCurrentIndex(1))
-        
-        fdLayout.addWidget(note)
-        fdLayout.addWidget(title_btn)
-        fdLayout.addWidget(return_btn)
-        self.setLayout(fdLayout)
 
 class Single_Test(QWidget):
     def __init__(self,stack):
@@ -165,19 +146,21 @@ class Single_Test(QWidget):
         return_btn.setFixedSize(125,42)
         
         self.drop = QComboBox(stack)
-        self.drop.addItem("GPIO Pins")
-        self.drop.addItem("PWM/Servo")
+
         self.drop.addItem("I2C")
         self.drop.addItem("SPI")
         self.drop.addItem("UART")
-        self.drop.addItem("WIFI") #
-        self.drop.addItem("Bluetooth") #
-        self.drop.addItem("Ethernet") #
-        self.drop.addItem("USB 2.0 & 3.0") #
-        self.drop.addItem("Fan Controller") #
-        self.drop.addItem("Micro-HDMI Ports") #
-        self.drop.addItem("CSI/DSI") #
-        self.drop.addItem("Heatsink/Temperature Check") #
+        self.drop.addItem("PWM")
+        self.drop.addItem("PCM")
+        self.drop.addItem("GPIO")
+        self.drop.addItem("USB Ports") 
+        self.drop.addItem("Micro-HDMI Ports") 
+        self.drop.addItem("Fan Controller") 
+        self.drop.addItem("CPU Temperature")
+        self.drop.addItem("WIFI") 
+        self.drop.addItem("Ethernet") 
+        self.drop.addItem("Bluetooth")         
+        self.drop.addItem("CSI/DSI") 
         self.drop.setFixedSize(225,25)
         self.drop.setStyleSheet("font-size: 14px;")
 
@@ -202,31 +185,33 @@ class Single_Test(QWidget):
     def option_select(self):
         option = self.drop.currentText()
 
-        if option == "GPIO Pins":
-            stack.setCurrentIndex(4)
-        elif option == "PWM/Servo":
-            stack.setCurrentIndex(5)
-        elif option == "I2C":
-            stack.setCurrentIndex(6)
+        if option == "I2C":
+            stack.setCurrentIndex(3)
         elif option == "SPI":
-            stack.setCurrentIndex(7)
+            stack.setCurrentIndex(4)
         elif option == "UART":
+            stack.setCurrentIndex(5)            
+        elif option == "PWM":
+            stack.setCurrentIndex(6)
+        elif option == "PCM":
+            stack.setCurrentIndex(7)
+        elif option == "GPIO":
             stack.setCurrentIndex(8)
-        elif option == "WIFI":
+        elif option == "USB Ports":
             stack.setCurrentIndex(9)
-        elif option == "Bluetooth":
-            stack.setCurrentIndex(10)
-        elif option == "Ethernet":
-            stack.setCurrentIndex(11)
-        elif option == "USB 2.0 & 3.0":
-            stack.setCurrentIndex(12)
-        elif option == "Fan Controller":
-            stack.setCurrentIndex(13)
         elif option == "Micro-HDMI Ports":
+            stack.setCurrentIndex(10)
+        elif option == "Fan Controller":
+            stack.setCurrentIndex(11)
+        elif option == "CPU Temperature":
+            stack.setCurrentIndex(12)
+        elif option == "WIFI":
+            stack.setCurrentIndex(13)
+        elif option == "Ethernet":
             stack.setCurrentIndex(14)
-        elif option == "CSI/DSI":
+        elif option == "Bluetooth":
             stack.setCurrentIndex(15)
-        elif option == "Heatsink/Temperature Check":
+        elif option == "CSI/DSI":
             stack.setCurrentIndex(16)
 
 app = QApplication(sys.argv)
@@ -235,21 +220,21 @@ stack = QStackedWidget()
 
 stack.addWidget(Welcome_Screen(stack))
 stack.addWidget(Main_Menu(stack))
-stack.addWidget(Full_Diagnostic(stack))
 stack.addWidget(Single_Test(stack))
-stack.addWidget(GPIO_Menu(stack))
-stack.addWidget(PWM_Menu(stack))
 stack.addWidget(I2C_Menu(stack))
 stack.addWidget(SPI_Menu(stack))
 stack.addWidget(UART_Menu(stack))
-stack.addWidget(WIFI_Menu(stack))
-stack.addWidget(Bluetooth_Menu(stack))
-stack.addWidget(Ethernet_Menu(stack))
+stack.addWidget(PWM_Menu(stack))
+stack.addWidget(PCM_Menu(stack))
+stack.addWidget(GPIO_Menu(stack))
 stack.addWidget(USB_Menu(stack))
-stack.addWidget(Fan_Menu(stack))
 stack.addWidget(MicroHDMI_Menu(stack))
-stack.addWidget(CSI_Menu(stack))
+stack.addWidget(Fan_Menu(stack))
 stack.addWidget(Temperature_Menu(stack))
+stack.addWidget(WIFI_Menu(stack))
+stack.addWidget(Ethernet_Menu(stack))
+stack.addWidget(Bluetooth_Menu(stack))
+stack.addWidget(CSI_Menu(stack))
 
 stack.setFixedSize(900,600)
 
