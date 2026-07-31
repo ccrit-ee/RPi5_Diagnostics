@@ -1,0 +1,64 @@
+{
+    "i2c_data": {
+        "test": "I2C Communication",
+        "i2c": "Pass",
+        "i2cNote": ""
+    },
+    "spi_data": {
+        "test": "SPI Communication",
+        "spi": "Pass",
+        "spiNote": ""
+    },
+    "uart_data": {
+        "test": "UART",
+        "Transmit": "Pass",
+        "Received": "Pass",
+        "uartNote": "note"
+    },
+    "wifi_data": {
+        "test": "WIFI",
+        "transmit": "Pass",
+        "received": "Pass",
+        "packet loss": "Pass",
+        "wifiNote": ""
+    },
+    "bt_data": {
+        "test": "Bluetooth Pairing",
+        "connection": "Pass",
+        "btNote": ""
+    },
+    "ether_data": {
+        "test": "Ethernet",
+        "transmit": "Pass",
+        "received": "Fail",
+        "packet loss": "Fail",
+        "etherNote": ""
+    },
+    "usb_ports": {
+        "test": "USB Ports",
+        "usb 2.0 (top)": "Pass",
+        "usb 2.0 (bottom)": "Pass",
+        "usb 3.0 (top)": "Pass",
+        "usb 3.0 (bottom)": "Fail",
+        "usbNote": ""
+    },
+    "fan_data": {
+        "test": "Fan Connection",
+        "functional": "Pass",
+        "fanNote": ""
+    },
+    "cdsi_data": {
+        "test": "CSI and DSI",
+        "CSI0": "None",
+        "CSI1": "Pass",
+        "DSI0": "None",
+        "DSI1": "None",
+        "cdsiNote": ""
+    },
+    "temp_data": {
+        "test": "Temperature Check",
+        "idle": "Pass",
+        "stressed": "Pass",
+        "heatNote": ""
+    }
+}

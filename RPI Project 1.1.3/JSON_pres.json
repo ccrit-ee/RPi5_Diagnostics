@@ -1,0 +1,80 @@
+{
+    "pwm_data": {
+        "test": "PWM",
+        "RadioTitle": "Pass",
+        "RadioTitle2": "Fail",
+        "RadioTitle3": "Pass",
+        "RadioTitle4": "Pass",
+        "pwmNote": "pwmtest"
+    },
+    "i2c_data": {
+        "test": "I2C Communication",
+        "RadioTitle": "Pass",
+        "RadioTitle2": "Fail",
+        "i2cNote": "i2ctest"
+    },
+    "spi_data": {
+        "test": "SPI Communication",
+        "RadioTitle": "Pass",
+        "RadioTitle2": "Fail",
+        "spiNote": "spiTest"
+    },
+    "uart_data": {
+        "test": "UART",
+        "Transmit": "Fail",
+        "Received": "Pass",
+        "uartNote": "uartTest"
+    },
+    "wifi_data": {
+        "test": "WIFI",
+        "transmit": "Pass",
+        "received": "Fail",
+        "packet loss": "Pass",
+        "wifiNote": "wifiTest"
+    },
+    "bt_data": {
+        "test": "Bluetooth Pairing",
+        "RadioTitle": "Pass",
+        "btNote": "btTest"
+    },
+    "ether_data": {
+        "test": "Ethernet",
+        "transmit": "Pass",
+        "received": "Fail",
+        "packet loss": "Pass",
+        "etherNote": "etherTest"
+    },
+    "usb_ports": {
+        "test": "USB Ports",
+        "usb 2.0 (top)": "Pass",
+        "usb 2.0 (bottom)": "Pass",
+        "usb 3.0 (top)": "Fail",
+        "usb 3.0 (bottom)": "Fail",
+        "usbNote": "usbTest"
+    },
+    "fan_data": {
+        "test": "Fan Connection",
+        "functional": "pass",
+        "fanNote": "fanNote"
+    },
+    "micro_HDMI": {
+        "test": "Micro-HDMI Ports",
+        "hdmi0": "pass",
+        "hdmi1": "fail",
+        "mhdminotes": "mhdmiTest"
+    },
+    "cdsi_data": {
+        "test": "CSI and DSI",
+        "CSI0": "Pass",
+        "CSI1": "Fail",
+        "DSI0": "Pass",
+        "DSI1": "Fail",
+        "cdsiNote": "cdsiTest"
+    },
+    "temp_data": {
+        "test": "Temperature Check",
+        "idle": "pass",
+        "stressed": "fail",
+        "heatNote": "tempTest"
+    }
+}
